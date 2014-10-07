@@ -22,7 +22,8 @@
      wsdl_op_port/1, wsdl_op_operation/1,
      wsdl_op_binding/1, wsdl_op_address/1,
      wsdl_op_action/1, wsdl_operations/1,
-     get_operation/2
+     get_operation/2,
+     getPorts/1, getOperations/2
     ]).
 
 
