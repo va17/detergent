@@ -311,7 +311,7 @@ initModel2(WsdlFile, Prefix, Path, Import, AddFiles) ->
     WsdlName = filename:join([Path, "wsdl.xsd"]),
     IncludeWsdl = {"http://schemas.xmlsoap.org/wsdl/", "wsdl", WsdlName},
     {ok, WsdlModel} = erlsom:compile_xsd_file(filename:join([Path, "soap.xsd"]),
-                          [{prefix, "soap"},
+                          [{prefix, "SOAP-ENV"},
                            {include_files, [IncludeWsdl]}]),
     %% add the xsd model (since xsd is also used in the wsdl)
     WsdlModel2 = erlsom:add_xsd_model(WsdlModel),
@@ -322,7 +322,7 @@ initModel2(WsdlFile, Prefix, Path, Import, AddFiles) ->
     %% TODO: add files as required
     %% now compile envelope.xsd, and add Model
     {ok, EnvelopeModel} = erlsom:compile_xsd_file(filename:join([Path, "envelope.xsd"]),
-                          [{prefix, "soap"}]),
+                          [{prefix, "SOAP-ENV"}]),
     SoapModel = erlsom:add_model(EnvelopeModel, Model),
     SoapModel2 = addModels(AddFiles, SoapModel),
     #wsdl{operations = Operations, model = SoapModel2}.
