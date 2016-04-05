@@ -249,11 +249,11 @@ parseMessage(Message, #wsdl{model = Model}) ->
 %%
 parseMessage(Message, Model) ->
     case erlsom:scan(Message, Model) of
-    {ok, #'soap:Envelope'{'Body' = #'soap:Body'{choice = Body},
+    {ok, #'SOAP-ENV:Envelope'{'Body' = #'SOAP-ENV:Body'{choice = Body},
                   'Header' = undefined}, _} ->
         {ok, undefined, Body};
-    {ok, #'soap:Envelope'{'Body' = #'soap:Body'{choice = Body},
-                  'Header' = #'soap:Header'{choice = Header}}, _} ->
+    {ok, #'SOAP-ENV:Envelope'{'Body' = #'SOAP-ENV:Body'{choice = Body},
+                  'Header' = #'SOAP-ENV:Header'{choice = Header}}, _} ->
         {ok, Header, Body};
     {error, ErrorMessage} ->
         {error, {decoding, ErrorMessage}}
@@ -274,10 +274,10 @@ mk_envelope(M, H) when is_tuple(M) -> mk_envelope([M], H);
 mk_envelope(M, H) when is_tuple(H) -> mk_envelope(M, [H]);
 %%
 mk_envelope(Messages, []) when is_list(Messages) ->
-    #'soap:Envelope'{'Body' =  #'soap:Body'{choice = Messages}};
+    #'SOAP-ENV:Envelope'{'Body' =  #'SOAP-ENV:Body'{choice = Messages}};
 mk_envelope(Messages, Headers) when is_list(Messages),is_list(Headers) ->
-    #'soap:Envelope'{'Body'   =  #'soap:Body'{choice   = Messages},
-             'Header' =  #'soap:Header'{choice = Headers}}.
+    #'SOAP-ENV:Envelope'{'Body'   =  #'SOAP-ENV:Body'{choice   = Messages},
+             'Header' =  #'SOAP-ENV:Header'{choice = Headers}}.
 
 %%% --------------------------------------------------------------------
 %%% Parse a WSDL file and return a 'Model'
@@ -567,7 +567,7 @@ getPortsInfo([], _Name, Acc) ->
 
 getPortsInfo([#'wsdl:tPort'{name = Name,
                             binding = Binding,
-                            choice = [#'soap:tAddress'{location = URL}]} | Tail], ServiceName, Acc) ->
+                            choice = [#'SOAP-ENV:tAddress'{location = URL}]} | Tail], ServiceName, Acc) ->
   getPortsInfo(Tail, ServiceName, [#port{service = ServiceName, port = Name, binding = Binding, address = URL}|Acc]);
 %% non-soap bindings are ignored.
 getPortsInfo([#'wsdl:tPort'{} | Tail], ServiceName, Acc) ->
@@ -613,7 +613,7 @@ getOperationsFromOperations([#'wsdl:tBindingOperation'{name = Name, choice = Cho
                             BindingName, BindingType, Operations, Ports, Acc) ->
   %% get SOAP action from Choice,
   case Choice of
-    [#'soap:tOperation'{soapAction = Action}] ->
+    [#'SOAP-ENV:tOperation'{soapAction = Action}] ->
       %% lookup Binding in Ports, and create a combined result
       Ports2 = searchPorts(BindingName, Ports),
       %% for each port, make an operation record
