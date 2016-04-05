@@ -197,9 +197,9 @@ return(Model, ResHeader, ResBody, ResCode, SessVal, Files) ->
     %% add envelope
     Header2 = case ResHeader of
                   undefined -> undefined;
-                  _         -> #'soap:Header'{choice = ResHeader}
+                  _         -> #'SOAP-ENV:Header'{choice = ResHeader}
               end,
-    Envelope = #'soap:Envelope'{'Body' =  #'soap:Body'{choice = ResBody},
+    Envelope = #'SOAP-ENV:Envelope'{'Body' =  #'SOAP-ENV:Body'{choice = ResBody},
                                 'Header' = Header2},
     case catch erlsom:write(Envelope, Model) of
         {ok, XmlDoc} ->
