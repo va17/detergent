@@ -1,7 +1,7 @@
 -ifndef(DETERGENT).
 -define(DETERGENT, true).
 
--define(DEFAULT_PREFIX, "p").
+-define(DEFAULT_PREFIX, "ns1").
 
 -record(call_opts, {url, prefix=?DEFAULT_PREFIX,
                     http_headers=[],
@@ -12,11 +12,11 @@
 -record(wsdl, {operations, model, module}).
 -record(port, {service, port, binding, address}).
 -record(operation, {service, port, operation, binding, address, action}).
--record('soap:detail', {anyAttribs, choice}).
--record('soap:Fault', {anyAttribs, 'faultcode', 'faultstring', 'faultactor', 'detail'}).
--record('soap:Body', {anyAttribs, choice}).
--record('soap:Header', {anyAttribs, choice}).
--record('soap:Envelope', {anyAttribs, 'Header', 'Body', choice}).
+-record('SOAP-ENV:detail', {anyAttribs, choice}).
+-record('SOAP-ENV:Fault', {anyAttribs, 'faultcode', 'faultstring', 'faultactor', 'detail'}).
+-record('SOAP-ENV:Body', {anyAttribs, choice}).
+-record('SOAP-ENV:Header', {anyAttribs, choice}).
+-record('SOAP-ENV:Envelope', {anyAttribs, 'Header', 'Body', choice}).
 -record('wsdl:tExtensibilityElement', {anyAttribs, 'wsdl:required'}).
 -record('wsdl:tPort', {anyAttribs, 'name', 'binding', 'documentation', choice}).
 -record('wsdl:tService', {anyAttribs, 'name', 'documentation', choice, 'port'}).
@@ -49,13 +49,13 @@
 -record('wsdl:tDocumented', {anyAttribs, 'documentation'}).
 -record('wsdl:tDocumentation-any', {anyAttribs, choice}).
 -record('wsdl:tDocumentation', {anyAttribs, choice}).
--record('soap:tBinding', {anyAttribs, 'wsdl:required', 'transport', 'style'}).
--record('soap:tOperation', {anyAttribs, 'wsdl:required', 'soapAction', 'style'}).
--record('soap:tBody', {anyAttribs, 'wsdl:required', 'parts', 'namespace', 'use', 'encodingStyle'}).
--record('soap:tFaultRes', {anyAttribs, 'wsdl:required', 'parts', 'namespace', 'use', 'encodingStyle'}).
--record('soap:tFault', {anyAttribs, 'wsdl:required', 'parts', 'namespace', 'use', 'encodingStyle', 'name'}).
--record('soap:tHeader', {anyAttribs, 'wsdl:required', 'namespace', 'encodingStyle', 'use', 'part', 'message', 'headerfault'}).
--record('soap:tHeaderFault', {anyAttribs, 'namespace', 'encodingStyle', 'use', 'part', 'message'}).
--record('soap:tAddress', {anyAttribs, 'wsdl:required', 'location'}).
+-record('SOAP-ENV:tBinding', {anyAttribs, 'wsdl:required', 'transport', 'style'}).
+-record('SOAP-ENV:tOperation', {anyAttribs, 'wsdl:required', 'soapAction', 'style'}).
+-record('SOAP-ENV:tBody', {anyAttribs, 'wsdl:required', 'parts', 'namespace', 'use', 'encodingStyle'}).
+-record('SOAP-ENV:tFaultRes', {anyAttribs, 'wsdl:required', 'parts', 'namespace', 'use', 'encodingStyle'}).
+-record('SOAP-ENV:tFault', {anyAttribs, 'wsdl:required', 'parts', 'namespace', 'use', 'encodingStyle', 'name'}).
+-record('SOAP-ENV:tHeader', {anyAttribs, 'wsdl:required', 'namespace', 'encodingStyle', 'use', 'part', 'message', 'headerfault'}).
+-record('SOAP-ENV:tHeaderFault', {anyAttribs, 'namespace', 'encodingStyle', 'use', 'part', 'message'}).
+-record('SOAP-ENV:tAddress', {anyAttribs, 'wsdl:required', 'location'}).
 
 -endif.
